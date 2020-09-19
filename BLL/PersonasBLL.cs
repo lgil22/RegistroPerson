@@ -12,7 +12,6 @@ namespace RegistroPerson.BLL
 {
     public class PersonasBLL
     {
-
         public static bool Guardar(Personas persona)
         {
             if (!Existe(persona.personaId))
