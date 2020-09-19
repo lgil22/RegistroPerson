@@ -10,12 +10,12 @@ namespace RegistroPerson.Models
     {
         [Key]
         [Required(ErrorMessage = "El campo Id no puede estar vacío.")]
-        [Range(0, 1000000, ErrorMessage = "El campo Id no puede ser menor que cero o mayor a 1000000.")]
+        [Range(0, 70, ErrorMessage = "El campo Id no puede ser menor que cero o mayor a 70.")]
         public int personaId { get; set; }
 
         [Required(ErrorMessage = "El campo nombre no puede estar vacío.")]
-        [MinLength(3, ErrorMessage = "El nombre debe tener por lo menos 3 caracteres.")]
-        [MaxLength(50, ErrorMessage = "El nombre es muy largo.")]
+        [MinLength(4, ErrorMessage = "El nombre debe tener por lo menos 4 caracteres.")]
+        [MaxLength(75, ErrorMessage = "El nombre es muy largo.")]
         [RegularExpression(@"\S(.*)\S", ErrorMessage = "Debe ser un texto.")]
         public string nombre { get; set; }
 
@@ -25,12 +25,12 @@ namespace RegistroPerson.Models
         public string telefono { get; set; }
 
         [Required(ErrorMessage = "El campo cedula no puede estar vacío.")]
-        [MinLength(9, ErrorMessage = "El campo cedula debe contener 11 caracteres.")]
+        [MinLength(7, ErrorMessage = "El campo cedula debe contener 11 caracteres.")]
         public string cedula { get; set; }
 
         [Required(ErrorMessage = "El campo dirección no puede estar vacía.")]
-        [MinLength(10, ErrorMessage = "La dirección es muy corta.")]
-        [MaxLength(40, ErrorMessage = "La dirección debe contener menos de 40 caracteres.")]
+        [MinLength(15, ErrorMessage = "La dirección es muy corta.")]
+        [MaxLength(80, ErrorMessage = "La dirección debe contener menos de 80 caracteres.")]
         public string direccion { get; set; }
 
         [DataType(DataType.DateTime)]

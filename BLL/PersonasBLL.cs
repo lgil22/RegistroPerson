@@ -12,7 +12,7 @@ namespace RegistroPerson.BLL
 {
     public class PersonasBLL
     {
-        private readonly Contexto db;
+        private Contexto db;
 
         public PersonasBLL()
         {
