@@ -5,11 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using RegistroPerson.DAL;
+
 
 namespace RegistroPerson.BLL
 {
     public class PersonasBLL
     {
+        private readonly Contexto db;
+
+        public PersonasBLL()
+        {
+            db = new Contexto();
+        }
         public bool Guardar(Personas personas)
         {
             bool paso = false;

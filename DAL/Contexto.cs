@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace RegistroPerson.DAL
 {
-    public class Contexto
+    public class Contexto : DbContext
     {
         public DbSet<Personas> Personas { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=Data\Personas.db");
+            optionsBuilder.UseSqlite(@"Data Source= Data\Personas.db");
         }
     }
 }
