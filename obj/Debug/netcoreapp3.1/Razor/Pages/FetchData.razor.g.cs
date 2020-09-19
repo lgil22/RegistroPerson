@@ -73,6 +73,20 @@ using RegistroPerson.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 10 "C:\Aplicada2\RegistroPerson\_Imports.razor"
+using Blazored.Toast;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Aplicada2\RegistroPerson\_Imports.razor"
+using Blazored.Toast.Services;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 3 "C:\Aplicada2\RegistroPerson\Pages\FetchData.razor"
 using RegistroPerson.Data;
 

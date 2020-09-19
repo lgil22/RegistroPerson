@@ -12,118 +12,138 @@ namespace RegistroPerson.BLL
 {
     public class PersonasBLL
     {
-        private Contexto db;
 
-        public PersonasBLL()
+        public static bool Guardar(Personas persona)
         {
-            db = new Contexto();
+            if (!Existe(persona.personaId))
+                return Insertar(persona);
+            else
+                return Modificar(persona);
         }
-        public bool Guardar(Personas personas)
+
+        private static bool Existe(int id)
         {
-            bool paso = false;
+            Contexto contexto = new Contexto();
+            bool encontrado = false;
+
             try
             {
-                if (db.Personas.Add(personas) != null)
-                    paso = db.SaveChanges() > 0;
-
+                encontrado = contexto.Personas.Any(d => d.personaId == id);
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
             {
-                db.Dispose();
+                contexto.Dispose();
             }
-
-            return paso;
+            return encontrado;
         }
 
-        public bool Modificar(Personas personas)
+        private static bool Insertar(Personas persona)
         {
-            bool paso = false;
+            Contexto contexto = new Contexto();
+            bool insertado = false;
 
             try
             {
-                db.Entry(personas).State = EntityState.Modified;
-                paso = db.SaveChanges() > 0;
+                contexto.Personas.Add(persona);
+                insertado = (contexto.SaveChanges() > 0);
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
             {
-                db.Dispose();
+                contexto.Dispose();
             }
-
-            return paso;
+            return insertado;
         }
 
-        public bool Eliminar(int ID)
+        private static bool Modificar(Personas persona)
         {
-            bool paso = false;
+            Contexto contexto = new Contexto();
+            bool modificado = false;
+
             try
             {
-                var aux = db.Personas.Find(ID);
-                db.Personas.Remove(aux);
-
-                paso = db.SaveChanges() > 0;
+                contexto.Entry(persona).State = EntityState.Modified;
+                modificado = (contexto.SaveChanges() > 0);
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
             {
-                db.Dispose();
+                contexto.Dispose();
             }
-
-
-            return paso;
+            return modificado;
         }
 
-        public Personas Buscar(int ID)
+        public static bool Eliminar(int id)
         {
-            Personas personas = new Personas();
+            Contexto contexto = new Contexto();
+            bool eliminado = false;
 
             try
             {
-                personas = db.Personas.Find(ID);
+                var buscando = contexto.Personas.Find(id);
+                contexto.Entry(buscando).State = EntityState.Deleted;
+                eliminado = (contexto.SaveChanges() > 0);
             }
-            catch (Exception)
+            catch
             {
-
                 throw;
             }
             finally
             {
-                db.Dispose();
+                contexto.Dispose();
             }
-
-            return personas;
+            return eliminado;
         }
 
-        public List<Personas> GetList(Expression<Func<Personas, bool>> persona)
+        public static Personas Buscar(int id)
         {
-            List<Personas> lista = new List<Personas>();
+            Contexto contexto = new Contexto();
+            Personas persona = new Personas();
+
             try
             {
-                lista = db.Personas.Where(persona).ToList();
+                persona = contexto.Personas.Find(id);
             }
-            catch (Exception)
+            catch
             {
-
                 throw;
             }
             finally
             {
-                db.Dispose();
+                contexto.Dispose();
             }
-            return lista;
+            return persona;
+        }
+
+
+        public static List<Personas> GetList(Expression<Func<Personas, bool>> persona)
+        {
+            Contexto contexto = new Contexto();
+            List<Personas> listado = new List<Personas>();
+
+            try
+            {
+                listado = contexto.Personas.Where(persona).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return listado;
         }
     }
 }
